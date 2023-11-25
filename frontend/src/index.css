@@ -1,0 +1,445 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+/* notification page user */
+
+.notification-user{
+  margin-top: 110px;
+}
+
+/*  */
+
+.course-detailed-page{
+  background-image: url('../public/images/user/review.jpg') !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.course-detailed-button{
+background-color: #005555;
+}
+
+.course-detailed-page-course{
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+
+/* ----------------------------------------REVIEW adding page only-----profilr -purchases - review------------------------------------------------------------------------- */
+.rating svg {
+  width: 20px;
+  height: 20px;
+  fill: #f1c40f;
+  margin-right: 5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.star_input {
+  display: none;
+}
+
+.star {
+  cursor: pointer;
+}
+
+.title_div {
+  margin-bottom: 5px;
+}
+
+.review_main_div {
+  background-image: url('../public/images/user/review.jpg') !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.review-ist-box{
+  background-color: gold;
+}
+
+.rating-button{
+  background-color:#8acbc2 !important;
+}
+
+/* ----------------------------------------REVIEW------------------------------------------------------------------------------ */
+
+
+
+/* ------------google login */
+.login-google-or{
+  margin-top: 25px;
+  margin-bottom: 20PX;
+}
+
+.login-google{
+  margin-bottom: 15px;
+  margin-top: 10px;
+  /* font-size:large; */
+  font-weight: bold;
+}
+
+
+/* ------------------------------------------------------------ */
+
+
+
+
+
+
+
+/* purchasesPage */
+
+.purchasesPage{
+  margin-top: 70px;
+}
+
+.paginate{
+  background-color:#5dccbd ;
+}
+
+.active-page .page-link {
+  background-color:#5dccbd !important ;
+  color: black;
+}
+
+
+
+
+
+
+/* ----- */
+
+
+
+
+.card-courses{
+  background-image: linear-gradient(to top, #fdfeff, #ecf9ff, #d9f5fc, #c5f1f4, #b4ede5);
+}
+
+
+/* ADD CATEGORY FORM PAGE */
+
+.add-category-button{  
+background-color: #8acbc2 !important;
+}
+
+.add-category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Center vertically on the page */
+  background-color: #f0f0f0; /* Background color for the form container */
+}
+
+.form {
+  background-color: #fff; /* Background color for the form */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+/* Additional styling can be added as per your preferences */
+
+
+/*  */
+
+
+
+
+/* //------------- TRAINER AADD SERVICE FORM   && also for add category form admin*/ 
+
+.TrainerAddService.artist_details-form {
+  background-image: url("https://unsplash.com/images/nature/landscape");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.artist_login {
+  font-size: 35px !important;
+  padding-bottom: 30px !important;
+  color: rgb(0, 0, 0);
+}
+
+.artistDetailsLabel {
+  color: black !important;
+  font-size: 10px;
+}
+
+.artistDetailsInput {
+  color: black !important;
+  background-color: #d1eae7 !important;
+  font-size: 15px !important;
+}
+
+.artist_details-form {
+  padding: 2% 10% 0% 10% !important;
+  background: #8acbc2;
+  width: 50%;
+  margin-left: 25%;
+  margin-top: 4%;
+  border-radius: 25px;
+}
+
+.artist_detail_form_anchor {
+  font-size: 10px !important;
+}
+
+.artistDetails_botton {
+  width: 23%;
+  margin-bottom: 5%;
+  font-size: 20px !important;
+  color: white !important;
+  background-color: black;
+  align-items: center;
+}
+
+
+/* ??-------------- */
+
+.trainer-landing{
+  background-color:#8acbc2 ;
+}
+
+.btn {
+  position: absolute;
+  top: 130px;
+  right: 10px;
+  border: 1px solid red;
+}
+
+.profile-banner{
+  background: linear-gradient(to bottom, #99ffcc 0%, #ff99cc 100%);
+}
+
+/* IN LANDING PAGE AND NAVBAR */
+.custom-button-class {
+  background-color: #08656e;
+  /* Add any additional styles you want here */
+}
+
+/* main footer */
+.main-footer{
+background-color: rgb(244,244,244);
+}
+
+/* icon color in the POINTS AREA */
+.icon-color {
+  fill: #08656e;
+}
+
+/* banner */
+.banner-custom{
+background-color: #a3c4c0;
+}
+
+/* qoute in testimonial */
+.quote-symbol-color {
+  fill: rgb(8,101,110); /* Change "pink" to your desired color */
+}
+
+
+/* ----------- */
+.landing-page{
+  background-color: #8acbc2 !important;
+  color:#08656e !important;
+}
+
+
+
+/* -------------- */
+.navbar-custom {
+  background-color: #8acbc2 !important;
+  color:#08656e !important;
+  border: transparent;
+}
+
+
+
+/* antd override */
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center; 
+}
+
+.normal-text {
+  font-size: 1rem;
+}
+
+.card {
+  box-shadow: 0 0 2px gray;
+  border-radius: 0 !important;
+}
+
+.primary-button {
+  background-color: #005555 !important;
+  border-color: #005555 !important;
+  height: 40px !important;
+  width: 100% !important;
+  color: white !important;
+  font-size: 18px !important;
+  margin-top: 10px;
+  margin-bottom: 10px; /* Add some margin to separate the button and the link */
+}
+
+/* AUTHENTICATION PAGES */
+.authentication {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../public/images/user/loginPage.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.authentication-admin {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../public/images/admin/login.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.authentication-trainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../public/images/trainer/login.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.authentication-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity (0.8 in this example) */
+  padding: 20px;
+  border-radius: 15px !important;
+}
+
+
+.forgot-password {
+  float: right;
+  margin-bottom: 10px; 
+}
+
+
+
+/* antd override */
+input {
+  border-radius: 2px !important;
+  height: 40px !important;
+}
+
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid gray !important;
+}
+
+label {
+  font-size: 16px !important;
+  color: black;
+}
+
+
+.authentication-form .forgot-password {
+  margin-top: -5px;
+  margin-right: 15px;
+  margin-bottom: 20px 
+}
+
+
+
+.authentication-form .primary-button {
+  margin-top: 40px;
+  margin-bottom: 40px; 
+}
+
+.register {
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
+/* .trainer-home{
+  height: 100vh;
+  background-image: url('../public/images/trainer/homePage.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+} */
+
+/* .homePage{
+  height: 100vh;
+  background-image: url('../public/images/user/homePage.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+} */
+
+
+/* Add this CSS to your custom stylesheet */
+.ant-table-thead > tr > th {
+  background-color: #131733 !important; /* Change 'your-color' to the desired color */
+  color:white !important /* Change 'your-text-color' to the desired text color */
+}
+
+/* Add this CSS to your custom stylesheet */
+.ant-table-tbody > tr > td {
+  background-color:#1b223f !important; /* Change 'your-color' to the desired color */
+  color: white !important /* Change 'your-text-color' to the desired text color */
+}
+
+
+
+
+/* --------------------------------------------------------------------------------- */
+
+.spinner-parent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ background-color: rgba(0, 0, 0, 0.468);
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ z-index: 9999;
+}
+
+.spinner-border{
+  width: 4rem;
+  height: 4rem;
+  color: white !important;
+}
