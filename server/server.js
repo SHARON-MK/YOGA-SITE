@@ -28,24 +28,34 @@ const io = socketIo(server, {
 
   
 io.on('connection', (socket) => {
-    console.log('A user connected')
 
     socket.on('join', (room) => {
-        console.log('room created for',room);
-        socket.join(room);
+            socket.join(room);
     });
+    
 
     socket.on('notification_trainer', async (data) => {
-        console.log('Recived a notificationn for trainer');
         const { count, room } = data;
         io.to(room).emit('notification_trainer', { count, room});
     })
 
     socket.on('notification_user', async (data) => {
-        console.log('Recived a notificationn for user');
         const { count, room } = data;
-        console.log(room)
         io.to(room).emit('notification_user', { count, room});
+    })
+
+
+    socket.on('class_start_roomid_pass', async (data) => {
+        const { rooms } = data;
+
+        if (Array.isArray(rooms)) {
+            rooms.forEach((room) => {
+                io.to(room).emit('class_start_roomid_pass', {room});
+            });
+        } else {
+            // If rooms is not an array, treat it as a single room ID
+            io.to(rooms).emit('class_start_roomid_pass', {rooms});
+        }
     })
 
     socket.on('disconnect', () => {

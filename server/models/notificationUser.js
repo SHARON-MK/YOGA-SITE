@@ -16,7 +16,11 @@ const userNotificationSchema = mongoose.Schema({
         },
         booking_id: {
             type: String,
-            required: true
+            required: false
+        },
+        room:{
+          type: Number,
+          required: false
         },
         timestamp: {
             type: Date,

@@ -15,7 +15,7 @@ function TrainerAddService() {
     const [formData, setFormData] = useState({
         category: '',
         course_name: '',
-        duration: '',
+        time: '',
         amount: '',
         description: '',
         image: null
@@ -24,7 +24,7 @@ function TrainerAddService() {
     const [validations, setValidations] = useState({
         category: true,
         course_name: true,
-        duration: true,
+        time: true,
         amount: true,
         description: true,
         image: true
@@ -101,13 +101,13 @@ function TrainerAddService() {
 
         if (formData.category === '') {
             toast.error('please select category')
-        } else if (formData.duration === '') {
-            toast.error('please select duration')
+        } else if (formData.time === '') {
+            toast.error('please select time')
         } else {
             const formDataToSend = new FormData();
             formDataToSend.append('category', formData.category);
             formDataToSend.append('course_name', formData.course_name);
-            formDataToSend.append('duration', formData.duration);
+            formDataToSend.append('time', formData.time);
             formDataToSend.append('amount', formData.amount);
             formDataToSend.append('description', formData.description);
             formDataToSend.append('image', formData.image);
@@ -172,19 +172,19 @@ function TrainerAddService() {
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div className="relative z-0 w-full mb-6 group">
-                            <label htmlFor="duration" className="artistDetailsLabel">Duration per Day</label>
+                            <label htmlFor="time" className="artistDetailsLabel">Time</label>
                             <select
-                                id="duration"
+                                id="time"
                                 onChange={handleChange}
-                                value={formData.duration}
-                                name="duration"
-                                onBlur={() => handleBlur('duration')}
+                                value={formData.time}
+                                name="time"
+                                onBlur={() => handleBlur('time')}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 artistDetailsInput"
                             >
-                                <option value="">Choose Duration</option>
-                                <option value="1">1 Hour per day</option>
-                                <option value="1.5">1.5 Hours per day</option>
-                                <option value="2">2 Hours per day</option>
+                                <option value="">Choose time</option>
+                                <option value="6">6 AM</option>
+                                <option value="7">7 AM</option>
+                                <option value="8">8 AM</option>
                             </select>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">

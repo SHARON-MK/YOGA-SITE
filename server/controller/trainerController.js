@@ -3,7 +3,9 @@ const bycrpt = require('bcryptjs')
 const trainerModel = require('../models/trainerModel')
 const categoryModel = require('../models/categoryModel')
 const courseModel = require('../models/courseModel')
+const OrderModel = require('../models/orderModel')
 const trainerNotificationModel = require('../models/notificationTrainer')
+const userNotificationModel = require('../models/notificationUser')
 const ratingModel = require('../models/ratingModel')
 const jwt = require('jsonwebtoken')
 const encryptPassword = require('../config/passwordEncrypting')
@@ -270,7 +272,7 @@ const courseRegistration = async (req, res) => {
             category_id: categoryData._id,
             category: req.body.category,
             course_name: req.body.course_name,
-            duration: req.body.duration,
+            time: req.body.time,
             amount: req.body.amount,
             description: req.body.description,
             image: imageURL
@@ -383,7 +385,7 @@ const courseEdit = async (req, res) => {
                     course_name: req.body.course_name,
                     category: req.body.category,
                     amount: req.body.amount,
-                    duration: req.body.duration,
+                    time: req.body.time,
                     description: req.body.description,
                 }
             }
@@ -448,40 +450,40 @@ const notificationCount = async (req, res) => {
 
 const getNotifications = async (req, res) => {
     try {
-      const trainerId = req.body.trainerId;
-      const trainerNotifications = await trainerNotificationModel.aggregate([
-        {
-          $match: {
-            trainer_id: trainerId,
-            'notifications.status': true,
-          },
-        },
-        {
-          $unwind: '$notifications',
-        },
-        {
-          $match: {
-            'notifications.status': true,
-          },
-        },
-        {
-            $sort: {
-              'notifications.timestamp': -1, 
+        const trainerId = req.body.trainerId;
+        const trainerNotifications = await trainerNotificationModel.aggregate([
+            {
+                $match: {
+                    trainer_id: trainerId,
+                    'notifications.status': true,
+                },
             },
-          },
-      ]);
-  
-      if (trainerNotifications.length > 0) {
-        return res.status(200).send({ message: 'notification count', success: true, data: trainerNotifications });
-      } else {
-        return res.status(200).send({ message: 'trainer not found or no notifications', success: false });
-      }
+            {
+                $unwind: '$notifications',
+            },
+            {
+                $match: {
+                    'notifications.status': true,
+                },
+            },
+            {
+                $sort: {
+                    'notifications.timestamp': -1,
+                },
+            },
+        ]);
+
+        if (trainerNotifications.length > 0) {
+            return res.status(200).send({ message: 'notification count', success: true, data: trainerNotifications });
+        } else {
+            return res.status(200).send({ message: 'trainer not found or no notifications', success: false });
+        }
     } catch (error) {
-      console.log('Error in backend of fetching reviews', error);
-      res.status(500).send({ message: 'something went wrong', success: false });
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
     }
-  };
-  
+};
+
 
 const updateNotificationStatus = async (req, res) => {
     try {
@@ -498,6 +500,137 @@ const updateNotificationStatus = async (req, res) => {
             }
         );
         return res.status(200).send({ message: 'trainer not found or no notifications', success: true });
+
+    } catch (error) {
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
+    }
+}
+
+const getClassDetails = async (req, res) => {
+    try {
+
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const monthName = currentDate.toLocaleString('default', { month: 'long' });
+        const currentMonthAndYear = `${monthName}/${currentYear}`;
+
+
+        return res.status(200).send({ message: 'trainer not found or no notifications', success: true, month: currentMonthAndYear });
+
+    } catch (error) {
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
+    }
+}
+
+
+const getAllUsersForNotification = async (req, res) => {
+    try {
+
+        const courseId = req.query.courseId
+        const roomId = req.query.roomId
+
+        const currentDate = new Date();
+        const currentMonthName = currentDate.toLocaleString('default', { month: 'long' });
+        const currentYear = currentDate.getFullYear();
+
+        const orders = await OrderModel.find({
+            course_id: courseId,
+            year: currentYear.toString(),
+            month: currentMonthName,
+        });
+
+        const userIds = orders.map(order => order.user_id);
+        console.log('sharon', userIds)
+       
+        // notification adding to user----------------------------
+        
+        if (Array.isArray(userIds)) {
+            // If userIds is an array
+            for (const userId of userIds) {
+                
+                const notificationsAlreadyUser = await userNotificationModel.findOne({ user_id: userId });
+                if (notificationsAlreadyUser) {
+                    await userNotificationModel.updateOne(
+                        { user_id: userId },
+                        {
+                            $push: {
+                                notifications: {
+                                    name: `Your class has been started, CLICK HERE TO JOIN or Go to classes and enter the room Code ${roomId}`,
+                                    timestamp: new Date(),
+                                    room: roomId
+                                },
+                            },
+                        }
+                    );
+                } else {
+                    const classRoomNotification = new userNotificationModel({
+                        user_id: userId,
+                        notifications: [
+                            {
+                                name: `Your class has been started, CLICK HERE TO JOIN or Go to classes and enter the room Code ${roomId}`,
+
+                                timestamp: new Date(),
+                                room: roomId
+                            },
+                        ],
+                    });
+                    await classRoomNotification.save();
+                }
+            }
+        } else {
+            // If userIds is not an array (assuming it's a single user ID)
+            const userId = userIds;
+        
+            const notificationsAlreadyUser = await userNotificationModel.findOne({ user_id: userId });
+            if (notificationsAlreadyUser) {
+                await userNotificationModel.updateOne(
+                    { user_id: userId },
+                    {
+                        $push: {
+                            notifications: {
+                                name: `Your class has been started, CLICK HERE TO JOIN or Go to classes and enter the room Code ${roomId}`,
+
+                                timestamp: new Date(),
+                                room: roomId
+                            },
+                        },
+                    }
+                );
+            } else {
+                const bookingNotification = new userNotificationModel({
+                    user_id: userId,
+                    notifications: [
+                        {
+                            name: `Your class has been started, CLICK HERE TO JOIN or Go to classes and enter the room Code ${roomId}`,
+                            timestamp: new Date(),
+                            room: roomId
+                        },
+                    ],
+                });
+                await bookingNotification.save();
+            }
+        }
+        // const allNotificaionsUser = await userNotificationModel.findOne({ user_id: userIds })
+        // const notificationDataUser = allNotificaionsUser.notifications.filter(notiy => notiy.status === true)
+        // ------------------------------------------------------------------------
+
+        return res.status(200).send({ message: 'all users data', success: true, data:userIds});
+
+    } catch (error) {
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
+    }
+}
+
+const getTrainerName = async (req, res) => {
+    try {
+
+        const trainerId = req.body.trainerId
+        const trainerData = await trainerModel.findOne({_id:trainerId})
+        const trainerName = trainerData.name
+        return res.status(200).send({ message: 'trainer name fetched', success: true, data:trainerName });
        
     } catch (error) {
         console.log('Error in backend of fetching reviews', error);
@@ -522,6 +655,8 @@ module.exports = {
     getReviews,
     notificationCount,
     getNotifications,
-    updateNotificationStatus
+    updateNotificationStatus,
+    getClassDetails,
+    getAllUsersForNotification,
+    getTrainerName
 }
-

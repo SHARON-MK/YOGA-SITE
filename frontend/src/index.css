@@ -3,26 +3,94 @@
 @import 'tailwindcss/utilities';
 
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+
+/*---------------video call page  */
+
+.video-call-main {
+  background-image: url('../public/images/trainer/video-call.jpg') !important;
+}
+
+.video-call-main-user{
+  background-image: url('../public/images/user/video-call.jpg') !important;
+}
+
+.video-call-starting{
+  border-radius: 10px;
+}
+
+/* ---------------------------- */
+
+/* classes page trainer side */
+
+.classes-trainer {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 90px;
+  height: 300px;
+  border-radius: 10px;
+  width: 600px;
+}
+
+.classes {
+  height: max-content;
+  background-image: url('../public/images/trainer/CLASSES.jpg') !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.classes-button {
+  background-color: green;
+  /* Set the default background color */
+  color: #ffffff;
+  /* Set the default text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 100px;
+  /* Adjust the value to control the roundness */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Add a smooth transition effect */
+}
+
+.classes-button:hover {
+  background-color: #2779bd;
+  /* Change the background color on hover */
+  color: black;
+}
+
+/*  */
+
+
+
 /* notification page user */
 
-.notification-user{
+.notification-user {
   margin-top: 110px;
 }
 
 /*  */
 
-.course-detailed-page{
+.course-detailed-page {
   background-image: url('../public/images/user/review.jpg') !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
-.course-detailed-button{
-background-color: #005555;
+.course-detailed-button {
+  background-color: #005555;
 }
 
-.course-detailed-page-course{
+.course-detailed-page-course {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
@@ -60,12 +128,12 @@ background-color: #005555;
   background-size: cover;
 }
 
-.review-ist-box{
+.review-ist-box {
   background-color: gold;
 }
 
-.rating-button{
-  background-color:#8acbc2 !important;
+.rating-button {
+  background-color: #8acbc2 !important;
 }
 
 /* ----------------------------------------REVIEW------------------------------------------------------------------------------ */
@@ -73,12 +141,12 @@ background-color: #005555;
 
 
 /* ------------google login */
-.login-google-or{
+.login-google-or {
   margin-top: 25px;
   margin-bottom: 20PX;
 }
 
-.login-google{
+.login-google {
   margin-bottom: 15px;
   margin-top: 10px;
   /* font-size:large; */
@@ -96,16 +164,16 @@ background-color: #005555;
 
 /* purchasesPage */
 
-.purchasesPage{
+.purchasesPage {
   margin-top: 70px;
 }
 
-.paginate{
-  background-color:#5dccbd ;
+.paginate {
+  background-color: #5dccbd;
 }
 
 .active-page .page-link {
-  background-color:#5dccbd !important ;
+  background-color: #5dccbd !important;
   color: black;
 }
 
@@ -119,15 +187,15 @@ background-color: #005555;
 
 
 
-.card-courses{
+.card-courses {
   background-image: linear-gradient(to top, #fdfeff, #ecf9ff, #d9f5fc, #c5f1f4, #b4ede5);
 }
 
 
 /* ADD CATEGORY FORM PAGE */
 
-.add-category-button{  
-background-color: #8acbc2 !important;
+.add-category-button {
+  background-color: #8acbc2 !important;
 }
 
 .add-category-container {
@@ -135,12 +203,15 @@ background-color: #8acbc2 !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Center vertically on the page */
-  background-color: #f0f0f0; /* Background color for the form container */
+  height: 100vh;
+  /* Center vertically on the page */
+  background-color: #f0f0f0;
+  /* Background color for the form container */
 }
 
 .form {
-  background-color: #fff; /* Background color for the form */
+  background-color: #fff;
+  /* Background color for the form */
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -160,7 +231,7 @@ background-color: #8acbc2 !important;
 
 
 
-/* //------------- TRAINER AADD SERVICE FORM   && also for add category form admin*/ 
+/* //------------- TRAINER AADD SERVICE FORM   && also for add category form admin*/
 
 .TrainerAddService.artist_details-form {
   background-image: url("https://unsplash.com/images/nature/landscape");
@@ -211,8 +282,8 @@ background-color: #8acbc2 !important;
 
 /* ??-------------- */
 
-.trainer-landing{
-  background-color:#8acbc2 ;
+.trainer-landing {
+  background-color: #8acbc2;
 }
 
 .btn {
@@ -222,7 +293,7 @@ background-color: #8acbc2 !important;
   border: 1px solid red;
 }
 
-.profile-banner{
+.profile-banner {
   background: linear-gradient(to bottom, #99ffcc 0%, #ff99cc 100%);
 }
 
@@ -233,8 +304,8 @@ background-color: #8acbc2 !important;
 }
 
 /* main footer */
-.main-footer{
-background-color: rgb(244,244,244);
+.main-footer {
+  background-color: rgb(244, 244, 244);
 }
 
 /* icon color in the POINTS AREA */
@@ -243,20 +314,21 @@ background-color: rgb(244,244,244);
 }
 
 /* banner */
-.banner-custom{
-background-color: #a3c4c0;
+.banner-custom {
+  background-color: #a3c4c0;
 }
 
 /* qoute in testimonial */
 .quote-symbol-color {
-  fill: rgb(8,101,110); /* Change "pink" to your desired color */
+  fill: rgb(8, 101, 110);
+  /* Change "pink" to your desired color */
 }
 
 
 /* ----------- */
-.landing-page{
+.landing-page {
   background-color: #8acbc2 !important;
-  color:#08656e !important;
+  color: #08656e !important;
 }
 
 
@@ -264,7 +336,7 @@ background-color: #a3c4c0;
 /* -------------- */
 .navbar-custom {
   background-color: #8acbc2 !important;
-  color:#08656e !important;
+  color: #08656e !important;
   border: transparent;
 }
 
@@ -275,7 +347,7 @@ background-color: #a3c4c0;
 .card-title {
   font-size: 1.5rem;
   font-weight: bold;
-  text-align: center; 
+  text-align: center;
 }
 
 .normal-text {
@@ -295,7 +367,8 @@ background-color: #a3c4c0;
   color: white !important;
   font-size: 18px !important;
   margin-top: 10px;
-  margin-bottom: 10px; /* Add some margin to separate the button and the link */
+  margin-bottom: 10px;
+  /* Add some margin to separate the button and the link */
 }
 
 /* AUTHENTICATION PAGES */
@@ -343,7 +416,8 @@ background-color: #a3c4c0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.6); /* Adjust the opacity (0.8 in this example) */
+  background-color: rgba(255, 255, 255, 0.6);
+  /* Adjust the opacity (0.8 in this example) */
   padding: 20px;
   border-radius: 15px !important;
 }
@@ -351,7 +425,7 @@ background-color: #a3c4c0;
 
 .forgot-password {
   float: right;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 
@@ -377,18 +451,19 @@ label {
 .authentication-form .forgot-password {
   margin-top: -5px;
   margin-right: 15px;
-  margin-bottom: 20px 
+  margin-bottom: 20px
 }
 
 
 
 .authentication-form .primary-button {
   margin-top: 40px;
-  margin-bottom: 40px; 
+  margin-bottom: 40px;
 }
 
 .register {
-  margin-top: 10px; /* Adjust the margin as needed */
+  margin-top: 10px;
+  /* Adjust the margin as needed */
 }
 
 /* .trainer-home{
@@ -409,15 +484,19 @@ label {
 
 
 /* Add this CSS to your custom stylesheet */
-.ant-table-thead > tr > th {
-  background-color: #131733 !important; /* Change 'your-color' to the desired color */
-  color:white !important /* Change 'your-text-color' to the desired text color */
+.ant-table-thead>tr>th {
+  background-color: #131733 !important;
+  /* Change 'your-color' to the desired color */
+  color: white !important
+    /* Change 'your-text-color' to the desired text color */
 }
 
 /* Add this CSS to your custom stylesheet */
-.ant-table-tbody > tr > td {
-  background-color:#1b223f !important; /* Change 'your-color' to the desired color */
-  color: white !important /* Change 'your-text-color' to the desired text color */
+.ant-table-tbody>tr>td {
+  background-color: #1b223f !important;
+  /* Change 'your-color' to the desired color */
+  color: white !important
+    /* Change 'your-text-color' to the desired text color */
 }
 
 
@@ -425,20 +504,20 @@ label {
 
 /* --------------------------------------------------------------------------------- */
 
-.spinner-parent{
+.spinner-parent {
   display: flex;
   justify-content: center;
   align-items: center;
- background-color: rgba(0, 0, 0, 0.468);
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.468);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
 }
 
-.spinner-border{
+.spinner-border {
   width: 4rem;
   height: 4rem;
   color: white !important;

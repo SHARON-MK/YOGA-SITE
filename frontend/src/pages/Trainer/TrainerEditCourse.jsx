@@ -15,7 +15,7 @@ function TrainerEditCourse() {
     const [formData, setFormData] = useState({
         category: course ? course.category : '',
         course_name: course ? course.course_name : '',
-        duration: course ? course.duration : '',
+        time: course ? course.time : '',
         amount: course ? course.amount : '',
         description: course ? course.description : '',
         image: null,
@@ -24,7 +24,7 @@ function TrainerEditCourse() {
     const [formErrors, setFormErrors] = useState({
         category: '',
         course_name: '',
-        duration: '',
+        time: '',
         amount: '',
         description: '',
     });
@@ -55,8 +55,8 @@ function TrainerEditCourse() {
         if (!formData.course_name.trim()) {
             errors.course_name = 'Course name is required';
         }
-        if (!formData.duration.trim()) {
-            errors.duration = 'Duration is required';
+        if (!formData.time) {
+            errors.time = 'time is required';
         }
         const amountString = String(formData.amount);
         if (!amountString.trim()) {
@@ -81,7 +81,7 @@ function TrainerEditCourse() {
                 formDataForUpdate.append('courseId', course._id);
                 formDataForUpdate.append('category', formData.category);
                 formDataForUpdate.append('course_name', formData.course_name);
-                formDataForUpdate.append('duration', formData.duration);
+                formDataForUpdate.append('time', formData.time);
                 formDataForUpdate.append('amount', formData.amount);
                 formDataForUpdate.append('description', formData.description);
 
@@ -175,22 +175,22 @@ function TrainerEditCourse() {
                     </div>
                     <div className="grid md:grid-cols-2 md:gap-6">
                         <div className="relative z-0 w-full mb-6 group">
-                            <label htmlFor="duration" className="artistDetailsLabel">
-                                Duration per Day
+                            <label htmlFor="time" className="artistDetailsLabel">
+                                Time
                             </label>
                             <select
-                                id="duration"
-                                value={formData.duration}
-                                name="duration"
+                                id="time"
+                                value={formData.time}
+                                name="time"
                                 onChange={handleInputChange}
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 artistDetailsInput"
                             >
-                                <option value="">Choose Duration</option>
-                                <option value="1">1 Hour per day</option>
-                                <option value="1.5">1.5 Hours per day</option>
-                                <option value="2">2 Hours per day</option>
+                                <option value="">Choose time</option>
+                                <option value="6">6 AM</option>
+                                <option value="7">7 AM</option>
+                                <option value="8">8 AM</option>
                             </select>
-                            <div className="text-red-500 text-sm mb-2">{formErrors.duration}</div>
+                            <div className="text-red-500 text-sm mb-2">{formErrors.time}</div>
                         </div>
                         <div className="relative z-0 w-full mb-6 group">
                             <label htmlFor="floating_first_name" className="artistDetailsLabel">

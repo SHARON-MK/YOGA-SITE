@@ -22,7 +22,6 @@ function TrainerNavbar() {
       method: 'GET'
     })
     setNotificationCount(response.data.data)
-    console.log('wow',notificationCount)
   }
 
   const getData = async () => {
@@ -53,7 +52,6 @@ function TrainerNavbar() {
 
     socket.on('notification_trainer', (data) => {
       const { count, room } = data
-      console.log('wyaaah')
       toast.success('You have a new notification')
       setNotificationCount(count)
     });

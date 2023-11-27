@@ -14,8 +14,8 @@ module.exports = async(req,res,next)=>{
               return res.status(200).send({ message:"Your account is blocked. Contact an admin for assistance.", success: false})
            }
            else{
-              console.log('passes error handling midlware');
-              console.log(req.body.trainerId)
+            //   console.log('passes error handling midlware');
+            //   console.log(req.body.trainerId)
                next()
            }
        

@@ -26,6 +26,9 @@ route.get("/categoryList", trainerController.categoryList);
 route.get("/get-reviews", trainerController.getReviews);
 route.get("/notification-count", trainerController.notificationCount);
 route.get("/get-notifications", trainerController.getNotifications);
+route.get("/get-classdetails", trainerController.getClassDetails);
+route.get("/get-allusers-fornotification", trainerController.getAllUsersForNotification);
+route.get("/get-trainer-name", trainerController.getTrainerName);
 
 route.post("/update-notification-status", trainerController.updateNotificationStatus);
 

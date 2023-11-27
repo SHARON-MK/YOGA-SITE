@@ -24,8 +24,8 @@ module.exports = async (req, res, next) => {
             }
             
             req.body.trainerId = decoded.id;
-            console.log(req.body.trainerId);
-            console.log('passes auth middleware')
+            // console.log(req.body.trainerId);
+            // console.log('passes auth middleware')
             next();
 
         });

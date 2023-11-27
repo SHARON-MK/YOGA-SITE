@@ -19,6 +19,8 @@ import CourseDetailedPage from '../pages/User/CourseDetailedPage';
 import Purchases from '../pages/User/Purchases';
 import Rating from '../pages/User/Rating';
 import Notifications from "../pages/User/notifications"
+import RoomUser from '../pages/User/RoomUser';
+import VideoCallUsers from '../pages/User/VideoCallUsers';
 
 
 import AdminHome from '../pages/Admin/AdminHome';
@@ -41,6 +43,9 @@ import TrainerServices from '../pages/Trainer/TrainerServices';
 import TrainerEditCourse from '../pages/Trainer/TrainerEditCourse';
 import Reviews from '../pages/Trainer/Reviews';
 import TrainerNotofication from '../pages/Trainer/TrainerNotofication';
+import Classes from '../pages/Trainer/classes';
+import Room from '../pages/Trainer/Room';
+import VideoCall from '../pages/Trainer/VideoCall';
 
 import { RouteObjects } from './RouteObjects';
 
@@ -71,6 +76,8 @@ function AppRoutes() {
           <Route path={RouteObjects.Purchase} element={<ProtectedRouteUser> <Purchases /> </ProtectedRouteUser>} />
           <Route path={RouteObjects.Rating} element={<ProtectedRouteUser> <Rating /> </ProtectedRouteUser>} />
           <Route path={RouteObjects.Notifications} element={<ProtectedRouteUser> <Notifications /> </ProtectedRouteUser>} />
+          <Route path={RouteObjects.RoomForUsers} element={<ProtectedRouteUser> <RoomUser /> </ProtectedRouteUser>} />
+          <Route path={RouteObjects.VideoCallUsers} element={<ProtectedRouteUser> <VideoCallUsers /> </ProtectedRouteUser>} />
 
          {/* ADMIN SIDE */}
          <Route path={RouteObjects.AdminLogin} element={<PublicRouteAdmin>< Adminlogin /></PublicRouteAdmin >} />
@@ -94,6 +101,9 @@ function AppRoutes() {
           <Route path={RouteObjects.ReviewsListOnTrainerSide} element={<ProtectedRouteTrainer> <Reviews /> </ProtectedRouteTrainer>} />
           <Route path={RouteObjects.EditCourse} element={<ProtectedRouteTrainer> <TrainerEditCourse /> </ProtectedRouteTrainer>} />
           <Route path={RouteObjects.TrainerNotifications} element={<ProtectedRouteTrainer> <TrainerNotofication /> </ProtectedRouteTrainer>} />
+          <Route path={RouteObjects.ClassesTrainer} element={<ProtectedRouteTrainer> <Classes /> </ProtectedRouteTrainer>} />
+          <Route path={RouteObjects.RoomCreation} element={<ProtectedRouteTrainer> <Room /> </ProtectedRouteTrainer>} />
+          <Route path={RouteObjects.Videocall} element={<ProtectedRouteTrainer> <VideoCall /> </ProtectedRouteTrainer>} />
 
          </Routes>
     </div>

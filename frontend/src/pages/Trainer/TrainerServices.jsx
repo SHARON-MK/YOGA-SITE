@@ -66,6 +66,14 @@ function TrainerServices() {
    }
   }
 
+  const handleViewClasses = (course)=>{
+    try {
+        navigate('/trainer/profile/services/classes',{state:{course}})
+    } catch (error) {
+        console.log('error while navigating to reviews page',error);
+    }
+   }
+
   const pageCount = Math.ceil(courses.length / itemsPerPage);
 
   const changePage = ({ selected }) => {
@@ -99,6 +107,12 @@ function TrainerServices() {
           </button>
         </td>
         <td>
+        <button
+            className="paginate hover:bg-blue-700 text-black py-2 px-4 rounded-full"
+            onClick={() => handleViewClasses(course)}
+          >
+            Classes
+          </button>
         <button
             className="paginate hover:bg-blue-700 text-black py-2 px-4 rounded-full"
             onClick={() => handleViewReview(course)}

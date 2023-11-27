@@ -33,6 +33,7 @@ route.get("/purchaselist", userController.purchaseList);
 route.get("/get-reviews", userController.getReviews);
 route.get("/notification-count", userController.notificationCount);
 route.get("/get-notifications", userController.getNotifications);
+route.get("/get-user-name", userController.getUsername);
 
 
 

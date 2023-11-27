@@ -3,7 +3,7 @@ import HomeNavbar from '../../components/user/HomeNavbar';
 import { purchasesAPI, cancelPurchaseAPI } from '../../api/userAPI';
 import ReactPaginate from 'react-paginate';
 import Swal from 'sweetalert2';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function Purchases() {
@@ -56,13 +56,21 @@ function Purchases() {
   };
 
 
-  const handleRating = (courseId)=>{
+  const handleRating = (courseId) => {
     try {
-      navigate('/profile/purchases/rating',{state:{courseId}})
+      navigate('/profile/purchases/rating', { state: { courseId } })
     } catch (error) {
       console.log('error whilel moving to rating page')
     }
-   }
+  }
+
+  const handleClass = (courseId) => {
+    try {
+      navigate('/profile/purchases/room')
+    } catch (error) {
+      console.log('error whilel moving to room page')
+    }
+  }
 
   const pageCount = Math.ceil(orders.length / itemsPerPage);
 
@@ -78,21 +86,32 @@ function Purchases() {
         <td className='font-bold'>{order.course_name}</td>
         <td>{order.category}</td>
         <td>
-          <button
-            className="paginate hover:bg-red-700 text-black py-2 px-4 rounded-full"
-            onClick={() => handleCancelBooking(order._id)}
-          >
-            Cancel Booking
-          </button>
+          <td>
+            <button
+              className="paginate hover:bg-red-700 text-black py-2 px-4 rounded-full"
+              onClick={() => handleCancelBooking(order._id)}
+            >
+              Cancel Booking
+            </button>
+          </td>
+          <td>
+            <button
+              className="paginate hover:bg-red-700 text-black py-2 px-4 rounded-full"
+              onClick={() => handleRating(order.course_id)}
+            >
+              Rate the Course
+            </button>
+          </td>
         </td>
         <td>
-          <button
-            className="paginate hover:bg-red-700 text-black py-2 px-4 rounded-full"
-            onClick={() => handleRating(order.course_id)}
-          >
-            Rate the Course
-          </button>
+        <button
+              className="paginate hover:bg-red-700 text-black py-2 px-4 rounded-full"
+              onClick={() => handleClass(order.course_id)}
+            >
+              Class
+            </button>
         </td>
+
       </tr>
     ));
 
@@ -107,6 +126,7 @@ function Purchases() {
               <th scope="col">Course</th>
               <th scope="col">Category</th>
               <th scope="col">Action</th>
+              <th scope="col">View</th>
             </tr>
           </thead>
           <tbody>{displayOrders}</tbody>

@@ -703,6 +703,21 @@ const updateNotificationStatus = async (req, res) => {
     }
 }
 
+const getUsername = async (req, res) => {
+    try {
+
+        const userId = req.body.userId
+        const userData = await userModel.findOne({_id:userId})
+        const userName = userData.name
+        console.log('wwwwwwwwwwww',userName)
+        return res.status(200).send({ message: 'user name fetched', success: true, data:userName });
+       
+    } catch (error) {
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
@@ -723,7 +738,8 @@ module.exports = {
     getReviews,
     notificationCount,
     updateNotificationStatus,
-    getNotifications
+    getNotifications,
+    getUsername
 
 
 }
