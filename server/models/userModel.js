@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-        required:false
+        default: 'https://res.cloudinary.com/dqn0v17b6/image/upload/v1691727669/routcpczust6tlyknhyy.jpg'
     },
     age:{
         type: Number,

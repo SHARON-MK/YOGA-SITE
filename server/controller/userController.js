@@ -2,6 +2,7 @@ const userModel = require('../models/userModel')
 const categoryModel = require('../models/categoryModel')
 const courseModel = require('../models/courseModel')
 const orderModel = require('../models/orderModel')
+const chatModel = require('../models/chatModel')
 const trainerNotificationModel = require('../models/notificationTrainer')
 const userNotificationModel = require('../models/notificationUser')
 const ratingModel = require('../models/ratingModel')
@@ -14,6 +15,7 @@ const Razorpay = require('razorpay')
 const sharp = require('sharp')
 const path = require('path');
 const TrainerModel = require('../models/trainerModel')
+require('dotenv').config()
 
 const cloudinary = require('cloudinary').v2
 cloudinary.config({
@@ -22,9 +24,10 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
 });
 
+
 var instance = new Razorpay({
-    key_id: process.env.razorpayId,
-    key_secret: process.env.razorpayKey
+    key_id: process.env.RAZORPAYID,
+    key_secret: process.env.RAZORPAYKEY
 });
 
 const registerUser = async (req, res) => {
@@ -359,9 +362,14 @@ const placeOrder = async (req, res) => {
         const coursename = purchasedCourse.course_name;
         const category = purchasedCourse.category;
 
+        // const currentDate = new Date();
+        // const currentMonthName = currentDate.toLocaleString('default', { month: 'long' });
+        // const currentYear = currentDate.getFullYear();
+
         const currentDate = new Date();
-        const currentMonthName = currentDate.toLocaleString('default', { month: 'long' });
-        const currentYear = currentDate.getFullYear();
+        const nextMonthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+        const nextMonthName = nextMonthDate.toLocaleString('default', { month: 'long' });
+        const nextMonthYear = nextMonthDate.getFullYear();
 
         const newOrder = new orderModel({
             course_id: req.body.courseId,
@@ -369,8 +377,8 @@ const placeOrder = async (req, res) => {
             course_name: coursename,
             category: category,
             status: 'pending',
-            month: currentMonthName,
-            year: currentYear,
+            month: nextMonthName,
+            year: nextMonthYear,
             date: Date.now(),
         });
 
@@ -417,41 +425,41 @@ const verifyPayment = async (req, res) => {
             await orderModel.findByIdAndUpdate({ _id: details.order.receipt }, { $set: { status: "placed" } });
             await orderModel.findByIdAndUpdate({ _id: details.order.receipt }, { $set: { paymentId: details.payment.razorpay_payment_id } });
 
-             // notification adding to user----------------------------
-             const userId = req.body.userId
-             const notificationsAlreadyUser = await userNotificationModel.findOne({ user_id: userId })
-             if (notificationsAlreadyUser) {
-                 await userNotificationModel.updateOne({ user_id: userId, },
-                     {
-                         $push:
-                         {
-                             notifications:
-                             {
-                                 name: `Your booking for the course ${placedOrder.course_name} has been confirmed, and the first day of training is set for ${placedOrder.month} 1 at 6 AM, You will get notifications prior to that`,
-                                 booking_id: details.payment.razorpay_payment_id,
-                                 timestamp: new Date(),
-                             }
-                         }
- 
-                     }
-                 )
-             }
-             else {
-                 const bookingNotification = new userNotificationModel({
+            // notification adding to user----------------------------
+            const userId = req.body.userId
+            const notificationsAlreadyUser = await userNotificationModel.findOne({ user_id: userId })
+            if (notificationsAlreadyUser) {
+                await userNotificationModel.updateOne({ user_id: userId, },
+                    {
+                        $push:
+                        {
+                            notifications:
+                            {
+                                name: `Your booking for the course ${placedOrder.course_name} has been confirmed, and the first day of training is set for ${placedOrder.month} 1 at 6 AM, You will get notifications prior to that`,
+                                booking_id: details.payment.razorpay_payment_id,
+                                timestamp: new Date(),
+                            }
+                        }
+
+                    }
+                )
+            }
+            else {
+                const bookingNotification = new userNotificationModel({
                     user_id: userId,
-                     notifications: [
-                         {
+                    notifications: [
+                        {
                             name: `Your booking for the course ${placedOrder.course_name} has been confirmed, and the first day of training is set for ${placedOrder.month} 1 at 6 AM, You will get notifications prior to that`,
-                             booking_id: details.payment.razorpay_payment_id,
-                             timestamp: new Date(),
-                         }
-                     ]
-                 })
-                 await bookingNotification.save()
-             }
-             const allNotificaionsUser = await userNotificationModel.findOne({ user_id: userId })
-             const notificationDataUser = allNotificaionsUser.notifications.filter(notiy => notiy.status === true)
-             // ------------------------------------------------------------------------
+                            booking_id: details.payment.razorpay_payment_id,
+                            timestamp: new Date(),
+                        }
+                    ]
+                })
+                await bookingNotification.save()
+            }
+            const allNotificaionsUser = await userNotificationModel.findOne({ user_id: userId })
+            const notificationDataUser = allNotificaionsUser.notifications.filter(notiy => notiy.status === true)
+            // ------------------------------------------------------------------------
 
             // notification adding to trainer----------------------------
             const trainerId = trainerIdForNotification
@@ -645,41 +653,41 @@ const notificationCount = async (req, res) => {
 
 const getNotifications = async (req, res) => {
     try {
-      const userId = req.body.userId;
-      const userNotifications = await userNotificationModel.aggregate([
-        {
-          $match: {
-            user_id: userId,
-            'notifications.status': true,
-          },
-        },
-        {
-          $unwind: '$notifications',
-        },
-        {
-          $match: {
-            'notifications.status': true,
-          },
-        },
-        {
-          $sort: {
-            'notifications.timestamp': -1, 
-          },
-        },
-      ]);
-  
-      if (userNotifications.length > 0) {
-        return res.status(200).send({ message: 'notification count', success: true, data: userNotifications });
-      } else {
-        return res.status(200).send({ message: 'user not found or no notifications', success: false });
-      }
+        const userId = req.body.userId;
+        const userNotifications = await userNotificationModel.aggregate([
+            {
+                $match: {
+                    user_id: userId,
+                    'notifications.status': true,
+                },
+            },
+            {
+                $unwind: '$notifications',
+            },
+            {
+                $match: {
+                    'notifications.status': true,
+                },
+            },
+            {
+                $sort: {
+                    'notifications.timestamp': -1,
+                },
+            },
+        ]);
+
+        if (userNotifications.length > 0) {
+            return res.status(200).send({ message: 'notification count', success: true, data: userNotifications });
+        } else {
+            return res.status(200).send({ message: 'user not found or no notifications', success: false });
+        }
     } catch (error) {
-      console.log('Error in backend of fetching reviews', error);
-      res.status(500).send({ message: 'something went wrong', success: false });
+        console.log('Error in backend of fetching reviews', error);
+        res.status(500).send({ message: 'something went wrong', success: false });
     }
-  };
-  
-  
+};
+
+
 
 const updateNotificationStatus = async (req, res) => {
     try {
@@ -696,7 +704,7 @@ const updateNotificationStatus = async (req, res) => {
             }
         );
         return res.status(200).send({ message: 'trainer not found or no notifications', success: true });
-       
+
     } catch (error) {
         console.log('Error in backend of fetching reviews', error);
         res.status(500).send({ message: 'something went wrong', success: false });
@@ -707,14 +715,68 @@ const getUsername = async (req, res) => {
     try {
 
         const userId = req.body.userId
-        const userData = await userModel.findOne({_id:userId})
+        const userData = await userModel.findOne({ _id: userId })
         const userName = userData.name
-        console.log('wwwwwwwwwwww',userName)
-        return res.status(200).send({ message: 'user name fetched', success: true, data:userName });
-       
+        return res.status(200).send({ message: 'user name fetched', success: true, data: userName });
+
     } catch (error) {
         console.log('Error in backend of fetching reviews', error);
         res.status(500).send({ message: 'something went wrong', success: false });
+    }
+}
+
+const chatHistory = async (room, text, sender) => {
+    try {
+        const userData = await userModel.findById(sender)
+        const name = userData.name
+        const roomExist = await chatModel.findOne({ room: room })
+        if (roomExist) {
+            await chatModel.updateOne({
+                room: room
+            },
+                {
+                    $push: {
+                        history: {
+                            sender_name: name,
+                            sender_id: sender,
+                            chat: text,
+                            time: new Date()
+                        }
+                    }
+                })
+        } else {
+            const chatHistory = new chatModel({
+                room: room,
+                history: [
+                    {
+                        sender_name: name,
+                        sender_id: sender,
+                        chat: text,
+                        time: new Date()
+                    }
+                ]
+            })
+            console.log('xxx', chatHistory)
+            await chatHistory.save()
+        }
+        console.log('end')
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getAdmindata = async (req, res) => {
+    try {
+        console.log('reached')
+        console.log(req.query)
+        const user = await userModel.findOne({ _id: req.query.test })
+        if (!user) {
+            return res.status(200).send({ message: "User does not exist", success: false })
+        } else {
+            return res.status(200).send({ success: true, data: user })
+        }
+    } catch (error) {
+        return res.status(500).send({ message: "Error getting ssssssssssss user info", success: false, error })
     }
 }
 
@@ -739,7 +801,9 @@ module.exports = {
     notificationCount,
     updateNotificationStatus,
     getNotifications,
-    getUsername
+    getUsername,
+    chatHistory,
+    getAdmindata
 
 
 }

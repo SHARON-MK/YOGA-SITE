@@ -4,6 +4,7 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const socketIo = require('socket.io');
+const userController = require("../server/controller/userController")
 
 const dbConfig = require('./config/dbConfig')
 require('dotenv').config();
@@ -56,6 +57,13 @@ io.on('connection', (socket) => {
             // If rooms is not an array, treat it as a single room ID
             io.to(rooms).emit('class_start_roomid_pass', {rooms});
         }
+    })
+
+    socket.on('chat', async (data) => {
+        console.log('ureeeeeeeeeeeeeeeeeeeeeeeeeekaaaaaaaaaaaaaaaaaa')
+        const { room, text, sender } = data;
+        await userController.chatHistory(room, text, sender)
+        io.to(room).emit('chat', { text, sender, room });
     })
 
     socket.on('disconnect', () => {

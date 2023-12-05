@@ -34,6 +34,8 @@ route.get("/get-reviews", userController.getReviews);
 route.get("/notification-count", userController.notificationCount);
 route.get("/get-notifications", userController.getNotifications);
 route.get("/get-user-name", userController.getUsername);
+route.get("/get-user-data", userController.authorization);
+route.get("/get-admin-data", userController.getAdmindata);
 
 
 

@@ -1,6 +1,7 @@
 const userModel = require('../models/userModel')
 const trainerModel = require('../models/trainerModel')
 const categoryModel = require('../models/categoryModel')
+const chatModel = require('../models/chatModel')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
@@ -164,6 +165,54 @@ const blockCategory = async(req,res)=>{
     }
 }
 
+const chattedUsersList = async (req, res) => {
+    try {
+        
+        const chatDocuments = await chatModel.find();
+
+        if (chatDocuments.length === 0) {
+            return res.status(200).send({ message: 'No chat history found', success: true, data: null });
+        }
+
+        const senderIds = chatDocuments.flatMap(chat => chat.history.map(item => item.sender_id));
+
+        const nonAdminUserDocuments = await userModel.find({ _id: { $in: senderIds }, admin: false });
+
+        res.status(200).send({ message: 'Sender IDs retrieved', success: true, chattedUsers: nonAdminUserDocuments });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Something went wrong', success: false });
+    }
+};
+
+const chatHistory = async (req, res) => {
+    try {
+        const chatData = await chatModel.aggregate([{ $unwind: '$history' }, { $match: { room: req.query.idOfUser } }])
+        if (!chatData) {
+            return res.status(200).send({ message: 'No chat history', success: false })
+        }
+        // console.log('chat history data at admin side',chatData)
+        
+        res.status(200).send({ message: 'success full', success: true, chatData: chatData, adminId: req.body.userId })
+    } catch (error) {
+        res.status(500).send({ messasge: 'somthing went wrong', success: false })
+    }
+};
+
+const adminData = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ _id: req.body.userId })
+        if (!user) {
+            return res.status(200).send({ message: "User does not exist", success: false })
+        } else {
+            return res.status(200).send({ success: true, data: user })
+        }
+    } catch (error) {
+        return res.status(500).send({ message: "Error getting user info", success: false, error })
+    }
+}
+
 module.exports ={
     login,
     authorization,
@@ -173,6 +222,9 @@ module.exports ={
     blockActionTrainer,
     addCategory,
     categoryList,
-    blockCategory
+    blockCategory,
+    chattedUsersList,
+    chatHistory,
+    adminData
 
 }

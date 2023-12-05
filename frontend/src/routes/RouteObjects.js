@@ -39,6 +39,8 @@ export const RouteObjects = {
     AdminLogin: "/admin/Login",
     Adminhome: "/admin",
     UserList: "/admin/users",
+    Chats: "/admin/chats",
+    ChatPersonal: "/admin/chats/personal",
     TrainerList: "/admin/trainers",
     CategoryList: "/admin/categories",
     AddCategory: "/admin/categories/add"

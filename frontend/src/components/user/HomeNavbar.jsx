@@ -23,7 +23,9 @@ const HomeNavbar = () => {
       url: "/api/user/notification-count",
       method: 'GET'
     })
-    setNotificationCount(response.data.data)
+    if(response.data){
+      setNotificationCount(response.data.data)
+    }
   }
 
   const toggleUserDropdown = () => {

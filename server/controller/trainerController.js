@@ -591,7 +591,6 @@ const getAllUsersForNotification = async (req, res) => {
                         $push: {
                             notifications: {
                                 name: `Your class has been started, CLICK HERE TO JOIN or Go to classes and enter the room Code ${roomId}`,
-
                                 timestamp: new Date(),
                                 room: roomId
                             },

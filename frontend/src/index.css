@@ -9,6 +9,131 @@ body {
   margin: 0;
 }
 
+.button-admin-chat-send{
+  height: 40px;
+}
+
+.input-admin-chat-send{
+  width: 1200px;
+}
+.msg_divs {
+  height: 100vh;
+}
+
+.chat-input-field{
+  background-color: #99cfc8 !important;
+  height: 30px !important;
+  width: 170px !important;
+  border-radius: 8px !important;
+}
+
+.chat-sen-button-user{
+  background-color: #005555 !important;
+}
+
+/* ----------------------------chat componenet-------------------- */
+
+.chat-container {
+  position: fixed;
+  bottom: 67px;
+  right: 20px;
+  width: 300px;
+  height: 400px; /* Set a fixed height for the container */
+  max-height: 400px; /* Set a maximum height to ensure it doesn't exceed 400px */
+  background-color: #57c4b5;
+  border: 1px solid #0f4f46;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow: hidden; /* Hide any potential content overflow */
+  border-radius: 10px;
+}
+
+.flex-1 {
+  margin-bottom: 20px; /* Add a margin to separate div-two from div-one */
+}
+
+.msg_divs {
+  overflow-y: auto;
+}
+
+.div-2 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+
+
+
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrollbar */
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.chat-input button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* home page---------------chat icon----------------------------------------------------------- */
+
+.home-container {
+  /* Add your existing styles for the main content container */
+}
+
+/* Chat icon styles */
+.chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 999;
+  transition: background-color 0.3s ease;
+}
+
+.chat-icon.open {
+  background-color: #ff6347;
+  z-index: 998;
+}
+
+/* ----------------------------------------------------------------------------- */
+
+
+
+
+
 
 /*---------------video call page  */
 

@@ -29,6 +29,8 @@ import UsersList from '../pages/Admin/UsersList';
 import TrainersList from '../pages/Admin/TrainersList';
 import CategoryList from '../pages/Admin/CategoryList';
 import AddCategory from '../pages/Admin/AddCategory'
+import Chats from '../pages/Admin/Chats'
+import ChatPersonal from '../pages/Admin/ChatPersonal';
 
 import TrainerHome from '../pages/Trainer/TrainerHome'
 import TrainerLogin from '../pages/Trainer/TrainerLogin'
@@ -86,6 +88,8 @@ function AppRoutes() {
          <Route path={RouteObjects.TrainerList} element={<ProtectedRouteAdmin>< TrainersList /></ProtectedRouteAdmin>} />
          <Route path={RouteObjects.CategoryList} element={<ProtectedRouteAdmin>< CategoryList /></ProtectedRouteAdmin>} />
          <Route path={RouteObjects.AddCategory} element={<ProtectedRouteAdmin>< AddCategory /></ProtectedRouteAdmin>} />
+         <Route path={RouteObjects.Chats} element={<ProtectedRouteAdmin>< Chats /></ProtectedRouteAdmin>} />
+         <Route path={RouteObjects.ChatPersonal} element={<ProtectedRouteAdmin>< ChatPersonal /></ProtectedRouteAdmin>} />
 
          {/* TRAINER SIDE */}
          <Route path={RouteObjects.TrainerHome} element={<ProtectedRouteTrainer> <TrainerHome /> </ProtectedRouteTrainer>} />
