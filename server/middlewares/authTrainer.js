@@ -3,6 +3,7 @@ const trainerModel = require('../models/trainerModel')
 
 module.exports = async (req, res, next) => {
     try {
+        console.log('asfasdfasddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
         const token = req.headers["authorization"];
 
         if (! token || ! token.startsWith("Bearer ")) {

@@ -129,13 +129,16 @@ function TrainerAddService() {
                         toast.error(response.data.message)
                     }
                 })
-                .catch((err) => toast('Please log in after trying'));
+                .catch((err) => {
+                        toast.error('Please log in after trying');
+                }
+                );
         }
     };
 
     return (
         <div>
-            <TrainerNavbar/>
+            <TrainerNavbar />
             <div className="p-6 artist_details-form ">
                 <h1 className="mb-9 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-white category_heading">Register Course Details</h1>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">

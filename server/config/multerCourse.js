@@ -15,16 +15,16 @@ const storage = multer.diskStorage({
 
     }
 })
-const imageFilter = function (req, file, cb) {
-    // Accept images only
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        req.fileValidationError = 'Only image files are allowed!';
-        return cb(new Error('Only image files are allowed!'), false);
-    }
-    cb(null, true);
-};
+// const imageFilter = function (req, file, cb) {
+//     // Accept images only
+//     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+//         req.fileValidationError = 'Only image files with extensions jpg, jpeg, png, or gif are allowed!';
+//         return cb(new Error('Only image files with extensions jpg, jpeg, png, or gif are allowed!'), false);
+//     }
+//     cb(null, true);
+// };
 
-const upload = multer({ storage: storage, fileFilter: imageFilter })
+const upload = multer({ storage: storage})
 
 const mediaStorage = multer.diskStorage({
     destination: function (req, file, cb) {

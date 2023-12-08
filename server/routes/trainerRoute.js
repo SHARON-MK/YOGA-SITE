@@ -7,18 +7,20 @@ const trainerController = require('../controller/trainerController')
 const upload = require('../config/multerCourse')
 const uploadTwo = require('../config/multerTrainer')
 
-route.post('/register',uploadTwo.upload.single('idcard'),trainerController.register)
-route.post('/otp',trainerController.verifyOtp)
-route.post('/login',trainerController.login)
-route.post('/google-login',trainerController.googleLogin)
-route.post('/forgotpassword',trainerController.forgotPassword)
-route.post('/resetPassword',trainerController.resetPassword)
+route.post('/register', uploadTwo.upload.single('idcard'), trainerController.register)
+route.post('/otp', trainerController.verifyOtp)
+route.post('/login', trainerController.login)
+route.post('/google-login', trainerController.googleLogin)
+route.post('/forgotpassword', trainerController.forgotPassword)
+route.post('/resetPassword', trainerController.resetPassword)
 
-route.post("/edit-profile",uploadTwo.upload.single('image'),authMiddleware, errorHandlingMiddleware,trainerController.editProfile);
-route.post("/course_registration",upload.upload.single('image'),authMiddleware, errorHandlingMiddleware, trainerController.courseRegistration);
-route.post("/course_edit",upload.upload.single('image'),authMiddleware, errorHandlingMiddleware, trainerController.courseEdit);
+route.post("/edit-profile", uploadTwo.upload.single('image'), authMiddleware, errorHandlingMiddleware, trainerController.editProfile);
 
-route.use(authMiddleware,errorHandlingMiddleware)
+route.post("/course_registration", upload.upload.single('image'), authMiddleware, errorHandlingMiddleware, trainerController.courseRegistration);
+
+route.post("/course_edit", upload.upload.single('image'), authMiddleware, errorHandlingMiddleware, trainerController.courseEdit);
+
+route.use(authMiddleware, errorHandlingMiddleware)
 
 route.post("/get-trainer-info-by-id", trainerController.authorization);
 route.get("/get-trainerdata", trainerController.authorization);

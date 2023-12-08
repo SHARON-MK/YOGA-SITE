@@ -9,7 +9,7 @@ const userController = require("../server/controller/userController")
 const dbConfig = require('./config/dbConfig')
 require('dotenv').config();
 
-app.use(cors({ origin: 'http://localhost:3000', }));
+app.use(cors());
 app.use(express.json())
 
 const userRoute = require("./routes/userRoute")
@@ -22,7 +22,7 @@ app.use('/api/trainer', trainerRoute)
 // edit
 const io = socketIo(server, { 
     cors: { 
-      origin: ['http://localhost:3000'], 
+      origin: "*", 
     } 
   });
   app.use("/socket.io", express.static("node_modules/socket.io-client/dist"));

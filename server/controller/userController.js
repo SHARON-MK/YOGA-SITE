@@ -15,6 +15,7 @@ const Razorpay = require('razorpay')
 const sharp = require('sharp')
 const path = require('path');
 const TrainerModel = require('../models/trainerModel')
+const mongoose = require('mongoose');
 require('dotenv').config()
 
 const cloudinary = require('cloudinary').v2
@@ -29,6 +30,13 @@ var instance = new Razorpay({
     key_id: process.env.RAZORPAYID,
     key_secret: process.env.RAZORPAYKEY
 });
+
+const sanitizeId = (Id) => {
+    if (!mongoose.Types.ObjectId.isValid(Id)) {
+        throw new Error('Invalid id');
+    }
+    return new mongoose.Types.ObjectId(Id);
+};
 
 const registerUser = async (req, res) => {
     try { // trim part- if the obj passed id undefined or empty trim cant perform and throw error to frontend directly - so check firts
@@ -179,7 +187,7 @@ const googleLogin = async (req, res) => {
 
 const authorization = async (req, res) => {
     try {
-        const user = await userModel.findOne({ _id: req.body.userId })
+        const user = await userModel.findOne({ _id: sanitizeId(req.body.userId) })
         if (!user) {
             return res.status(200).send({ message: "User does not exist", success: false })
         } else {
@@ -227,7 +235,7 @@ const resetPassword = async (req, res) => {
 
 const editProfile = async (req, res) => {
     try {
-        const id = req.body.userId
+        const id = sanitizeId(req.body.userId)
         const name = req.body.name
         const age = req.body.age
         const city = req.body.city
@@ -358,7 +366,7 @@ let placedOrder;
 const placeOrder = async (req, res) => {
     try {
 
-        const purchasedCourse = await courseModel.findOne({ _id: req.body.courseId })
+        const purchasedCourse = await courseModel.findOne({ _id: sanitizeId(req.body.courseId) })
         const coursename = purchasedCourse.course_name;
         const category = purchasedCourse.category;
 
@@ -372,7 +380,7 @@ const placeOrder = async (req, res) => {
         const nextMonthYear = nextMonthDate.getFullYear();
 
         const newOrder = new orderModel({
-            course_id: req.body.courseId,
+            course_id: sanitizeId(req.body.courseId),
             user_id: req.body.userId,
             course_name: coursename,
             category: category,
@@ -513,7 +521,7 @@ const verifyPayment = async (req, res) => {
 const purchaseList = async (req, res) => {
     try {
         const orderList = await orderModel.find({
-            user_id: req.body.userId,
+            user_id: sanitizeId(req.body.userId),
             status: 'placed'
         })
             .sort({ createdAt: -1 });
@@ -530,7 +538,7 @@ const purchaseList = async (req, res) => {
 
 const cancelpurchase = async (req, res) => {
     try {
-        const orderId = req.body.orderId
+        const orderId = sanitizeId(req.body.orderId)
         await orderModel.deleteOne({ _id: orderId })
         const newOrderList = await orderModel.find({
             user_id: req.body.userId,
@@ -565,7 +573,8 @@ const averageRating = async (courseId) => {
 const writeReview = async (req, res) => {
     try {
         const courseId = req.body.courseId
-        const userData = await userModel.findOne({ _id: req.body.userId })
+        const userId = sanitizeId(req.body.userId)
+        const userData = await userModel.findOne({ _id: userId })
         const ratingData = await ratingModel.findOne({ course_id: courseId })
         if (courseId) {
             if (!ratingData) {
@@ -619,7 +628,7 @@ const writeReview = async (req, res) => {
 
 const getReviews = async (req, res) => {
     try {
-        const courseId = req.query.courseId
+        const courseId = sanitizeId(req.query.courseId)
         const reviewData = await ratingModel.findOne({ course_id: courseId })
         if (reviewData) {
             return res.status(200).send({ message: 'Reviews fetched', success: true, data: reviewData })
@@ -635,7 +644,7 @@ const getReviews = async (req, res) => {
 
 const notificationCount = async (req, res) => {
     try {
-        const userId = req.body.userId;
+        const userId = sanitizeId(req.body.userId);
         const userNotifications = await userNotificationModel.findOne({ user_id: userId });
 
         if (userNotifications) {
@@ -692,7 +701,7 @@ const getNotifications = async (req, res) => {
 const updateNotificationStatus = async (req, res) => {
     try {
 
-        const notificationId = req.query.notificationId;
+        const notificationId = sanitizeId(req.query.notificationId);
         await userNotificationModel.updateOne(
             {
                 'notifications._id': notificationId
@@ -767,8 +776,6 @@ const chatHistory = async (room, text, sender) => {
 
 const getAdmindata = async (req, res) => {
     try {
-        console.log('reached')
-        console.log(req.query)
         const user = await userModel.findOne({ _id: req.query.test })
         if (!user) {
             return res.status(200).send({ message: "User does not exist", success: false })

@@ -4,6 +4,14 @@ const categoryModel = require('../models/categoryModel')
 const chatModel = require('../models/chatModel')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const mongoose = require('mongoose');
+
+const sanitizeId = (Id) => {
+    if (!mongoose.Types.ObjectId.isValid(Id)) {
+        throw new Error('Invalid id');
+    }
+    return new mongoose.Types.ObjectId(Id);
+};
 
 const login = async(req,res)=>{
     try {
@@ -34,7 +42,7 @@ const login = async(req,res)=>{
 // for this - /api/admin/get-user-info-by-id
 const authorization = async(req,res)=>{
     try {
-        const user = await userModel.findOne({_id: req.body.userId})
+        const user = await userModel.findOne({_id: sanitizeId(req.body.userId)})
         if(!user){
             return res.status(200).send({ message: "User does not exist", success: false})
         }
@@ -202,7 +210,7 @@ const chatHistory = async (req, res) => {
 
 const adminData = async (req, res) => {
     try {
-        const user = await userModel.findOne({ _id: req.body.userId })
+        const user = await userModel.findOne({ _id: sanitizeId(req.body.userId) })
         if (!user) {
             return res.status(200).send({ message: "User does not exist", success: false })
         } else {

@@ -99,6 +99,9 @@ function TrainerEditCourse() {
                         toast.success('Course updated successfully');
                         navigate('/trainer/profile/services'); 
                     }
+                    else{
+                        toast.error(response.data.message)
+                    }
                 })
 
             } catch (error) {
